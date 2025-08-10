@@ -4,9 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Url Shortener</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h1>Welcome to modern URL Shortener</h1>
-    <p>This is work in progress</p>
+    <div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl text-sky-500">Modern URL Shortener</h1>
+    <form method="post" action="/">
+        <label>
+            <span>Enter your long URL</span>
+            <input type="text" name="url" class="border p-1">
+        </label>
+        <button type="submit" class="bg-sky-500 text-white px-2 py-1 rounded">Shorten It</button>
+    </form>
+    <h2>All Shortened URLs</h2>
+    {% if all_urls %}
+    <div>
+        <table class="w-full border border-collapse border-gray-500 text-sm">
+            <thead>
+                <tr>
+                    <th>Short URL</th>
+                    <th>Original URL</th>
+                    <th>Visits</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url in all_urls %}
+                    <tr>
+                        <td><a href="/{{ url[1] }}" target="_blank">
+                            http://localhost:5000/{{ url[1] }}
+                        </a></td>
+                        <td>{{ url[0] }}</td>
+                        <td>{{ url[2] }}</td>
+                        <td>
+                            <form 
+                            action="/delete/{{ url[1] }}"
+                             class="text-red-500"
+                             onsubmit="return confirm('Delete this short url?')"
+                             >
+                             <button type="submit">
+                                Delete
+                             </button></form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No URLs have been shortened</p>
+    {% endif %}
+</div>
 </body>
 </html>

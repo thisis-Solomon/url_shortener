@@ -15,7 +15,7 @@ app = Flask(__name__)
 init_db()
 
 def generate_short_code(length = 6):
-    return "".join(random.choice(string.ascii_letters + string.digits, k=length))
+    return "".join(random.choices(string.ascii_letters + string.digits, k=length))
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -26,7 +26,7 @@ def index():
         return redirect('/')
     all_url = get_all_urls()
 
-    return render_template('index.html', all_url = all_url)
+    return render_template('index.html', all_urls = all_url)
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ def init_db():
 def insert_url(original_url, short_code):
     with sqlite3.connect(DB_NAME) as conn:
         conn.execute('''
-            INSERT INTO urls(original_urls, short_code)
+            INSERT INTO urls(original_url, short_code)
                      VALUES(?,?)
 ''', (original_url, short_code))
         
